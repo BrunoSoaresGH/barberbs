@@ -1,17 +1,23 @@
 package com.bruno.projects.barberbs.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Client implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
 	private String telephone;
-	private List<String> appointments = new ArrayList<String>();
+	private String appointments;
 	
 	public Client() {}
 
@@ -46,11 +52,11 @@ public class Client implements Serializable{
 		this.telephone = telephone;
 	}
 
-	public List<String> getAppointments() {
+	public String getAppointments() {
 		return appointments;
 	}
 
-	public void setAppointments(List<String> appointments) {
+	public void setAppointments(String appointments) {
 		this.appointments = appointments;
 	}
 
