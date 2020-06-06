@@ -1,28 +1,25 @@
 package com.bruno.projects.barberbs.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bruno.projects.barberbs.domain.Client;
+import com.bruno.projects.barberbs.services.ClientService;
 
 @RestController
 @RequestMapping(value="/clients")
 public class ClientResource {
+	
+	@Autowired
+	private ClientService clientService;
 
-	@GetMapping
-	public List<Client> list() {
-		
-		Client a = new Client(1, "Bruno Soares", "987654321");
-		Client b = new Client(2, "Rodrigo Soares", "987654322");
-		
-		List<Client> clients = new ArrayList<>(); 
-		clients.add(a);
-		clients.add(b);
-		
-		return clients;
+	@GetMapping(value="/{id}")
+	public ResponseEntity<?> getClient(@PathVariable Integer id) {
+		Client obj = clientService.getClient(id);
+		return ResponseEntity.ok().body(obj);
 	}
 }

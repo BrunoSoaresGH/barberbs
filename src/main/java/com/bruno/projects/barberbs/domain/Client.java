@@ -17,7 +17,7 @@ public class Client implements Serializable{
 	private Integer id;
 	private String name;
 	private String telephone;
-	private String appointments;
+	private String appointment;
 	
 	public Client() {}
 
@@ -52,12 +52,12 @@ public class Client implements Serializable{
 		this.telephone = telephone;
 	}
 
-	public String getAppointments() {
-		return appointments;
+	public String getAppointment() {
+		return appointment;
 	}
 
-	public void setAppointments(String appointments) {
-		this.appointments = appointments;
+	public void setAppointment(String appointment) {
+		this.appointment = appointment;
 	}
 
 	@Override
