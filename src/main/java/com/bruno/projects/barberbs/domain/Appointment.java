@@ -1,39 +1,40 @@
 package com.bruno.projects.barberbs.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class Client implements Serializable{
+public class Appointment implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String name;
-	private String telephone;
+	private String day;
+	private String hour;
 	
-	@JsonManagedReference
-	@OneToMany(mappedBy = "client")
-	private List<Appointment> appointments = new ArrayList<>();
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name="client_id")
+	private Client client;
 	
-	public Client() {}
-
-	public Client(Integer id, String name, String telephone) {
+	public Appointment() {}
+	
+	public Appointment(Integer id, String day, String hour, Client client) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.telephone = telephone;
+		this.day = day;
+		this.hour = hour;
+		this.client = client;
 	}
 
 	public Integer getId() {
@@ -44,28 +45,28 @@ public class Client implements Serializable{
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getDay() {
+		return day;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDay(String day) {
+		this.day = day;
 	}
 
-	public String getTelephone() {
-		return telephone;
+	public String getHour() {
+		return hour;
 	}
 
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
+	public void setHour(String hour) {
+		this.hour = hour;
 	}
 
-	public List<Appointment> getAppointments() {
-		return appointments;
+	public Client getClient() {
+		return client;
 	}
 
-	public void setAppointments(List<Appointment> appointments) {
-		this.appointments = appointments;
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	@Override
@@ -84,7 +85,7 @@ public class Client implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Client other = (Client) obj;
+		Appointment other = (Appointment) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
