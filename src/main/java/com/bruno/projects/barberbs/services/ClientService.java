@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bruno.projects.barberbs.domain.Client;
 import com.bruno.projects.barberbs.repositories.ClientRepository;
+import com.bruno.projects.barberbs.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ClientService {
@@ -16,6 +17,7 @@ public class ClientService {
 
 	public Client getClient(Integer id) {
 		Optional<Client> obj = clientRepository.findById(id);
-		return obj.orElse(null);
-	}
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Client " + id + " not found! Tipo: " + Client.class.getName()));
+	}	
+	
 }
